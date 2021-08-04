@@ -53,7 +53,15 @@ html {
 article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   display: block;
 }
-
+.justify-between{
+  margin-top: 15px;
+}
+.w-5{
+  width:50px;
+}
+.text-sm{
+  margin-top:10px;
+}
 body {
   margin: 0;
   font-family: "Nunito", sans-serif;
