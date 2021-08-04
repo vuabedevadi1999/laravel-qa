@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class QuestionsController extends Controller
 {
@@ -14,9 +15,11 @@ class QuestionsController extends Controller
      */
     public function index()
     {
-        $questions = Question::with(['user:id,name'])->orderBy('created_at','desc')->paginate(5);
+        // DB::enableQueryLog();
+        $questions = Question::orderBy('created_at','desc')->paginate(5);
         return view('questions.index',compact('questions'));
-        //return response()->json(['questions'=>$questions]);
+        // dd(DB::getQueryLog());
+        // return response()->json(['questions'=>$questions]);
     }
 
     /**
