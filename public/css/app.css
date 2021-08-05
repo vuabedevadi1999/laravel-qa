@@ -53,15 +53,7 @@ html {
 article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   display: block;
 }
-.justify-between{
-  margin-top: 15px;
-}
-.w-5{
-  width:50px;
-}
-.text-sm{
-  margin-top:10px;
-}
+
 body {
   margin: 0;
   font-family: "Nunito", sans-serif;
@@ -10009,4 +10001,35 @@ h3 {
     color: inherit;
     border-color: #dee2e6;
   }
+}
+.counters {
+  margin-right: 30px;
+  font-size: 10px;
+  text-align: center;
+}
+.counters strong {
+  display: block;
+  font-size: 2em;
+}
+.counters .vote, .counters .answer {
+  width: 60px;
+  height: 60px;
+}
+.counters .status.unanswered {
+  border: none;
+}
+.counters .status.answered {
+  border: 1px solid #5fbb7e;
+  color: #5fbb7e;
+}
+.counters .status.answered-accepted {
+  background: #5fbb7e;
+  color: #fff;
+}
+.counters .view {
+  margin-top: 10px;
+}
+
+.w-5 {
+  width: 50px;
 }
