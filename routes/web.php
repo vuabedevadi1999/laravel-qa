@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\QuestionsController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -21,6 +20,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::resource('questions', QuestionsController::class)->except('show');
 Route::get('/questions/{slug}','QuestionsController@show')->name('questions.show');

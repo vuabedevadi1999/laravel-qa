@@ -6,6 +6,7 @@ use App\Http\Requests\AskQuestionRequest;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class QuestionsController extends Controller
 {
@@ -66,7 +67,10 @@ class QuestionsController extends Controller
      */
     public function edit(Question $question)
     {
-        return view('questions.edit',compact('question'));
+        if(Gate::allows('update-question',$question)){
+            return view('questions.edit',compact('question'));
+        }
+        abort(403,"Access denial");
     }
 
     /**
@@ -78,8 +82,11 @@ class QuestionsController extends Controller
      */
     public function update(AskQuestionRequest $request, Question $question)
     {
-        $question->update($request->only('title','body'));
-        return redirect('/questions')->with('success','Cap nhat thanh cong');
+        if(Gate::allows('update-question',$question)){
+            $question->update($request->only('title','body'));
+            return redirect('/questions')->with('success','Cap nhat thanh cong');
+        }
+        abort(403,"Access denial");
     }
 
     /**
@@ -90,7 +97,10 @@ class QuestionsController extends Controller
      */
     public function destroy(Question $question)
     {
-        $question->delete();
-        return redirect('/questions')->with('success','Xoa thanh cong');
+        if(Gate::allows('delete-question',$question)){
+            $question->delete();
+            return redirect('/questions')->with('success','Xoa thanh cong');
+        }
+        abort(403,"Access denial");
     }
 }
