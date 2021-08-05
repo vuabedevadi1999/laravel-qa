@@ -54,7 +54,8 @@ class QuestionsController extends Controller
      */
     public function show(Question $question)
     {
-        
+        $question->increment('views');//mỗi lần user vào route này tức là 1 lượt view nên cần tăng view lê 1 đơn vị
+        return view('questions.show',compact('question'));
     }
 
     /**
