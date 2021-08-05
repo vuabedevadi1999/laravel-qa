@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AskQuestionRequest;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -39,9 +40,10 @@ class QuestionsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AskQuestionRequest $request)
     {
-        //
+        $request->user()->questions()->create($request->only(['title','body']));
+        return redirect()->route('questions.index')->with('success','Cau hoi cua ban da duoc gui');
     }
 
     /**
@@ -52,7 +54,7 @@ class QuestionsController extends Controller
      */
     public function show(Question $question)
     {
-        //
+        
     }
 
     /**
@@ -63,7 +65,7 @@ class QuestionsController extends Controller
      */
     public function edit(Question $question)
     {
-        
+        return view('questions.edit',compact('question'));
     }
 
     /**
@@ -73,9 +75,10 @@ class QuestionsController extends Controller
      * @param  \App\Models\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Question $question)
+    public function update(AskQuestionRequest $request, Question $question)
     {
-        //
+        $question->update($request->only('title','body'));
+        return redirect('/questions')->with('success','Cap nhat thanh cong');
     }
 
     /**
