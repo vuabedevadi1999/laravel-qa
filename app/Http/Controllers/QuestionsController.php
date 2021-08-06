@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Gate;
 
 class QuestionsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth',['except' => ['index','show']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -67,10 +71,15 @@ class QuestionsController extends Controller
      */
     public function edit(Question $question)
     {
+        //cách 1
         if(Gate::allows('update-question',$question)){
             return view('questions.edit',compact('question'));
         }
         abort(403,"Access denial");
+        //cách 2 để tạo authorization gõ : php artisan make:policy <tên polycy> --model=<tên model áp dụng policy>
+        //sau đó vào AuthServideProvider sửa trong mảng policies để policy có hiệu lực
+        // $this->authorize('update',$question);
+        // return view('questions.edit',compact('question'));
     }
 
     /**
@@ -82,11 +91,16 @@ class QuestionsController extends Controller
      */
     public function update(AskQuestionRequest $request, Question $question)
     {
+        //cách 1
         if(Gate::allows('update-question',$question)){
             $question->update($request->only('title','body'));
             return redirect('/questions')->with('success','Cap nhat thanh cong');
         }
         abort(403,"Access denial");
+        //cách 2
+        // $this->authorize('update',$question);
+        // $question->update($request->only('title','body'));
+        // return redirect('/questions')->with('success','Cap nhat thanh cong');
     }
 
     /**
@@ -97,10 +111,15 @@ class QuestionsController extends Controller
      */
     public function destroy(Question $question)
     {
+        //cách 1
         if(Gate::allows('delete-question',$question)){
             $question->delete();
             return redirect('/questions')->with('success','Xoa thanh cong');
         }
         abort(403,"Access denial");
+        //cách 2
+        // $this->authorize('delete',$question);
+        // $question->delete();
+        // return redirect('/questions')->with('success','Xoa thanh cong');
     }
 }
