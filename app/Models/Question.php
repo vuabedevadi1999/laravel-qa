@@ -36,6 +36,6 @@ class Question extends Model
         return $parsedown->text($this->body);
     }
     public function answers(){
-        return $this->hasMany(Answer::class);
+        return $this->hasMany(Answer::class)->orderBy('created_at','desc');
     }
 }
