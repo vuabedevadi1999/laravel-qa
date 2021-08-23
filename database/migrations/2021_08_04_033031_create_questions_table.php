@@ -21,7 +21,7 @@ class CreateQuestionsTable extends Migration
             $table->unsignedInteger('views')->default(0);//đếm câu hỏi được xem bn lần
             $table->unsignedInteger('answers')->default(0);//đếm bao nhiêu câu trả lời cho câu hỏi đó
             $table->integer('votes')->default(0);//đếm bao nhiêu người đang đặt 1 câu hỏi
-            $table->unsignedInteger('best_answer_id')->nullable();
+            $table->unsignedBigInteger('best_answer_id')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

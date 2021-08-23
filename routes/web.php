@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FavoritesController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -27,3 +28,5 @@ Route::get('/questions/{slug}','QuestionsController@show')->name('questions.show
 //Route::post('questions/{questions}/answers','AnswersController@store')->name('answers.store');
 Route::resource('questions.answers', AnswersController::class)->except(['index','create','show']);
 Route::post('/answers/{answer}/accept',AcceptAnswerControler::class)->name('answers.accept');
+Route::post('questions/{question}/favorites',[FavoritesController::class,'store'])->name('questions.favorites');
+Route::delete('questions/{question}/favorites',[FavoritesController::class,'destroy'])->name('questions.unfavorites');
