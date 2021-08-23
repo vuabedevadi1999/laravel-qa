@@ -38,4 +38,8 @@ class Question extends Model
     public function answers(){
         return $this->hasMany(Answer::class)->orderBy('created_at','desc');
     }
+    public function acceptBestAnswers(Answer $answer){
+        $this->best_answer_id = $answer->id;
+        $this->save();
+    }
 }
