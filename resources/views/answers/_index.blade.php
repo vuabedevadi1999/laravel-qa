@@ -17,7 +17,7 @@
                             <a title="This answer is not useful" class="vote-down off">
                                 <i class="fas fa-caret-down fa-3x"></i>
                             </a>
-                            <a title="Mark this answer as best answer" class="vote-accepted mt-2">
+                            <a title="Mark this answer as best answer" class="{{ $answer->status }} mt-2">
                                 <i class="fas fa-check fa-2x"></i>
                             </a>
                         </div>
@@ -29,7 +29,7 @@
                                         @can('update',$answer){{--nếu dùng cách 2 đổi update-question bằng update(tên hàm để authorization việc cập nhật)--}}
                                             <a href="{{ route('questions.answers.edit', [$question->id,$answer->id]) }}" class="btn btn-sm btn-outline-info">Edit</a>
                                         @endcan
-                                        
+
                                         @can('delete',$answer){{--nếu dùng cách 2 đổi delete-question bằng delete(tên hàm để authorization việc xóa)--}}
                                             <form class="form-delete" action="{{ route('questions.answers.destroy',[$question->id,$answer->id]) }}" method="post">
                                                 @method('DELETE')
