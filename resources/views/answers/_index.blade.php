@@ -17,9 +17,16 @@
                             <a title="This answer is not useful" class="vote-down off">
                                 <i class="fas fa-caret-down fa-3x"></i>
                             </a>
-                            <a title="Mark this answer as best answer" class="{{ $answer->status }} mt-2">
+                            <a title="Mark this answer as best answer" 
+                            class="{{ $answer->status }} mt-2"
+                            onclick="event.preventDefault(); document.getElementById('accept-answer-{{ $answer->id }}').submit()"
+                            >
                                 <i class="fas fa-check fa-2x"></i>
                             </a>
+                            <form id="accept-answer-{{ $answer->id }}"  method="POST" style="display: none">
+                                @csrf
+
+                            </form>
                         </div>
                         <div class="media-body">
                             {!! $answer->body_html !!}
@@ -27,7 +34,7 @@
                                 <div class="col-4">
                                     <div class="ml-auto">
                                         @can('update',$answer){{--nếu dùng cách 2 đổi update-question bằng update(tên hàm để authorization việc cập nhật)--}}
-                                            <a href="{{ route('questions.answers.edit', [$question->id,$answer->id]) }}" class="btn btn-sm btn-outline-info">Edit</a>
+                                            <a href="{{ route('questions.answers.edit', ['question'=>$question->id,'answer' => $answer->id]) }}" class="btn btn-sm btn-outline-info">Edit</a>
                                         @endcan
 
                                         @can('delete',$answer){{--nếu dùng cách 2 đổi delete-question bằng delete(tên hàm để authorization việc xóa)--}}
