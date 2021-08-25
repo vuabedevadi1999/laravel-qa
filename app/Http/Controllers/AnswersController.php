@@ -87,6 +87,12 @@ class AnswersController extends Controller
         $answer->update($request->validate([
             'body' => 'required',
         ]));
+        if($request->expectsJson()){ 
+            return response()->json([
+                'message' => 'Sửa câu tra lời thành công',
+                'body_html' => $answer->body_html
+            ]);
+        }
         return redirect()->route('questions.show',$question->slug)->with('success','Sửa câu tra lời thành công');
     }
 
