@@ -12,6 +12,8 @@ class Answer extends Model
     use HasFactory;
     
     protected $fillable = ['body','user_id'];
+    protected $appends = ['create_date'];
+
     public function question(){
         return $this->belongsTo(Question::class);
     }
