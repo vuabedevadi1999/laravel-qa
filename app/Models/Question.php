@@ -40,7 +40,7 @@ class Question extends Model
         return $this->bodyHtml();
     }
     public function answers(){
-        return $this->hasMany(Answer::class)->orderBy('created_at','desc');
+        return $this->hasMany(Answer::class)->orderBy('votes_count','desc');
     }
     public function acceptBestAnswers(Answer $answer){
         $this->best_answer_id = $answer->id;
