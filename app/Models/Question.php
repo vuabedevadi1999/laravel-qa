@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Parsedown;
+use Purifier;
 class Question extends Model
 {
     use HasFactory;
@@ -17,6 +18,9 @@ class Question extends Model
         $this->attributes['title'] = $value;
         $this->attributes['slug'] = str_slug($value);
     }
+    // public function setBodyAttribute($value){
+    //     $this->attributes['body'] = Purifier::clean($value);
+    // }
     public function getUrlAttribute(){
         return route('questions.show',$this->slug);
     }
@@ -33,8 +37,7 @@ class Question extends Model
         return "unanswered";
     }
     public function getBodyHtmlAttribute(){
-        $parsedown = new Parsedown();
-        return $parsedown->text($this->body);
+        return $this->bodyHtml();
     }
     public function answers(){
         return $this->hasMany(Answer::class)->orderBy('created_at','desc');
@@ -54,5 +57,17 @@ class Question extends Model
     }
     public function getFavoritesCountAttribute(){
         return $this->favorites->count();
+    }
+    public function getExcerptAttribute(){
+        return $this->excerpt(250);
+    }
+    public function excerpt($length)
+    {
+        return str_limit(strip_tags($this->bodyHtml()),$length);
+    }
+    public function bodyHtml()
+    {
+        $parsedown = new Parsedown();
+        return Purifier::clean($parsedown->text($this->body));
     }
 }
