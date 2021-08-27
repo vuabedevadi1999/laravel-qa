@@ -20,7 +20,7 @@ class AnswersController extends Controller
      */
     public function index(Question $question)
     {
-        return $question->answers()->with('user')->simplePaginate(1);
+        return $question->answers()->with('user')->simplePaginate(3);
     }
 
     /**
