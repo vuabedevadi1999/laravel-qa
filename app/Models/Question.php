@@ -11,7 +11,7 @@ class Question extends Model
     use HasFactory;
     use VotableTrait;
     protected $fillable = ['title','body'];
-    protected $appends = ['create_date'];
+    protected $appends = ['create_date', 'is_favorited', 'favorites_count'];
     public function user(){
         return $this->belongsTo(User::class);
     }
