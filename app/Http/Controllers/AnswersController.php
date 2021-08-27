@@ -106,6 +106,11 @@ class AnswersController extends Controller
     {
         $this->authorize('delete',$answer);
         $answer->delete();
+        if(request()->expectsJson()){ 
+            return response()->json([
+                'message' => 'Xóa câu trả lời thành công',
+            ]);
+        }
         return back()->with('success','Xóa câu trả lời thành công');
     }
 }

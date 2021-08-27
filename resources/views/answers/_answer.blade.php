@@ -22,11 +22,11 @@
                             @endcan
         
                             @can('delete',$answer){{--nếu dùng cách 2 đổi delete-question bằng delete(tên hàm để authorization việc xóa)--}}
-                                <form class="form-delete" action="{{ route('questions.answers.destroy',[$question->id,$answer->id]) }}" method="post">
+                            <button @click="destroy" class="btn btn-sm btn-outline-danger">Delete</button>
+                            <form class="form-delete" action="{{ route('questions.answers.destroy',[$question->id,$answer->id]) }}" method="post">
                                     @method('DELETE')
                                     @csrf
-                                    <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure ?');">Delete</button>
-                                </form>  
+                            </form>  
                             @endcan     
                         </div>  
                     </div>
