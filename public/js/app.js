@@ -3842,9 +3842,7 @@ __webpack_require__.r(__webpack_exports__);
         buttons: [['<button><b>YES</b></button>', function (instance, toast) {
           axios["delete"](_this.endpoint).then(function (res) {
             $(_this.$el).fadeOut(500, function () {
-              _this.$toast.success(res.data.message, "Success", {
-                timeout: 3000
-              });
+              _this.$emit('deleted');
             });
           });
           instance.hide({
@@ -3953,6 +3951,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }
   },
   methods: {
+    remove: function remove(index) {
+      this.answers.splice(index, 1);
+      this.count--;
+    },
     fetch: function fetch(endpoint) {
       var _this = this;
 
@@ -40783,10 +40785,15 @@ var render = function() {
                 _vm._v(" "),
                 _c("hr"),
                 _vm._v(" "),
-                _vm._l(_vm.answers, function(answer) {
+                _vm._l(_vm.answers, function(answer, index) {
                   return _c("answer", {
                     key: answer.id,
-                    attrs: { answer: answer }
+                    attrs: { answer: answer },
+                    on: {
+                      deleted: function($event) {
+                        return _vm.remove(index)
+                      }
+                    }
                   })
                 }),
                 _vm._v(" "),
