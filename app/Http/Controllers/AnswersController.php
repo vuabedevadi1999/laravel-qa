@@ -45,9 +45,15 @@ class AnswersController extends Controller
         //     'body' => 'required'
         // ]);
 
-        $question->answers()->create($request->validate([
+        $answer = $question->answers()->create($request->validate([
             'body' => 'required'
         ])+ ['user_id' => Auth::id()]);
+        if($request->expectsJson()){
+            return response()->json([
+                'message' => "Your answer has been submited",
+                'answer' => $answer->load('user'),
+            ],201);
+        }
         return back()->with('success','Cau tra loi da duoc gui');
     }
 
